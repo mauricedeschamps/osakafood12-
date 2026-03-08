@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Osaka B-grade Gourmet 12</title>
+    <!-- PWA マニフェスト（data URI埋め込み） -->
+    <!-- アイコンやテーマカラーはお好みで変更してください -->
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Osaka%20B-grade%20Gourmet%2012%22%2C%22short_name%22%3A%22Osaka%20Gourmet%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23121212%22%2C%22theme_color%22%3A%22%23d44c2f%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%2520viewBox%3D%270%200%20100%20100%27%253E%253Crect%2520width%3D%27100%27%2520height%3D%27100%27%2520rx%3D%2720%27%2520fill%3D%27%23d44c2f%27%2F%253E%253Ctext%2520x%3D%2750%27%2520y%3D%2770%27%2520font-size%3D%2770%27%2520text-anchor%3D%27middle%27%2520fill%3D%27%23ffffff%27%2520font-family%3D%27system-ui%2C%2520sans-serif%27%253E%25F0%259F%258D%25A3%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%2520viewBox%3D%270%200%20512%20512%27%253E%253Crect%2520width%3D%27512%27%2520height%3D%27512%27%2520rx%3D%27100%27%2520fill%3D%27%23d44c2f%27%2F%253E%253Ctext%2520x%3D%27256%27%2520y%3D%27350%27%2520font-size%3D%27350%27%2520text-anchor%3D%27middle%27%2520fill%3D%27%23ffffff%27%2520font-family%3D%27system-ui%2C%2520sans-serif%27%253E%25F0%259F%258D%25A3%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23d44c2f'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23ffffff' font-family='system-ui, sans-serif'%3E🍣%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23d44c2f'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23ffffff' font-family='system-ui, sans-serif'%3E🍣%3C/text%3E%3C/svg%3E">
+
+    <style>
+        /* ---------- 基本スタイル ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            transition: background-color 0.2s, color 0.2s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body.light-mode {
+            background-color: #faf3e8;
+            color: #2e2e2e;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+            flex: 1;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(145deg, #d44c2f, #ff8c5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.light-mode h1 {
+            background: linear-gradient(145deg, #b23c1c, #d44c2f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            background: #2d2d2d;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.15s;
+            border: 1px solid #444;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        body.light-mode .btn {
+            background: #fff0e0;
+            color: #2e2e2e;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn:hover { opacity: 0.8; }
+        .btn:active { transform: scale(0.96); }
+        .btn.lang::before { content: "🌐 "; }
+        .btn.theme::before { content: "🌙 "; }
+        body.light-mode .btn.theme::before { content: "☀️ "; }
+
+        .spots-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 24px 0 20px;
+        }
+        .card {
+            background: #1e1e1e;
+            border-radius: 24px;
+            padding: 16px;
+            border-left: 6px solid #d44c2f;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+            transition: 0.15s;
+        }
+        body.light-mode .card {
+            background: #ffffff;
+            border-left-color: #d44c2f;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card .media {
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: #333;
+            object-fit: cover;
+        }
+        body.light-mode .card .media {
+            background: #ddd;
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #ffb08a;
+        }
+        body.light-mode .card h2 {
+            color: #b23c1c;
+        }
+        .card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #d0d0d0;
+            margin-bottom: 12px;
+        }
+        body.light-mode .card p {
+            color: #333;
+        }
+        .card .link-button {
+            display: inline-block;
+            background: #d44c2f;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        body.light-mode .card .link-button {
+            background: #b23c1c;
+            color: white;
+        }
+        .card .link-button:hover {
+            opacity: 0.8;
+        }
+        .card .link-button:active {
+            transform: scale(0.96);
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 24px 12px 12px;
+            border-top: 1px solid #333;
+            font-size: 0.95rem;
+        }
+        body.light-mode .footer {
+            border-top-color: #ccc;
+        }
+        .footer a {
+            color: #ffb08a;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 6px;
+            padding: 8px 16px;
+            background: #2a2a2a;
+            border-radius: 40px;
+            border: 1px solid #444;
+        }
+        body.light-mode .footer a {
+            background: #fff0e0;
+            color: #b23c1c;
+            border-color: #aaa;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 4px 0;
+        }
+        body.light-mode .note {
+            color: #666;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <div class="header">
+            <h1 id="main-title">Osaka B-grade Gourmet 12</h1>
+            <div class="button-group">
+                <!-- 言語切替ボタン（英語/日本語） -->
+                <button class="btn lang" id="lang-toggle">🇯🇵 JP</button>
+                <button class="btn theme" id="theme-toggle"></button>
+            </div>
+        </div>
+
+        <div class="spots-list" id="spots-container"></div>
+
+        <div class="footer">
+            <div id="footer-contact">📧 Contact</div>
+            <a href="mailto:osaka.gourmet@example.com">osaka.gourmet@example.com</a>
+            <div class="note" id="footer-note">※ Replace images in the 'images' folder</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ========== 🍣 ここを編集：英語と日本語のデータ ==========
+            // 画像は共通です。images/フォルダにご自身の画像を入れてください。
+            // 英語をデフォルトとします（currentLang = 'en'）
+
+            // 英語データ
+            const spotsDataEn = [
+                {
+                    name: "Takoyaki",
+                    description: "Crispy outside, gooey inside. Served with sauce and mayonnaise. A must-try in Dotonbori.",
+                    mediaUrl: "images/takoyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=Dotonbori+takoyaki"
+                },
+                {
+                    name: "Okonomiyaki",
+                    description: "Savory pancake with cabbage and pork. You can grill it yourself at many restaurants.",
+                    mediaUrl: "images/okonomiyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=Osaka+okonomiyaki"
+                },
+                {
+                    name: "Kushikatsu",
+                    description: "Deep-fried skewers of meat and vegetables. The rule: no double-dipping!",
+                    mediaUrl: "images/kushikatsu.jpg",
+                    linkUrl: "https://www.google.com/search?q=Kushikatsu+Shinsekai"
+                },
+                {
+                    name: "Udon",
+                    description: "Soft noodles in a light Kansai-style broth. Kitsune udon (with fried tofu) is a local favorite.",
+                    mediaUrl: "images/udon.jpg",
+                    linkUrl: "https://www.google.com/search?q=Osaka+udon"
+                },
+                {
+                    name: "Osaka Sushi (Battera)",
+                    description: "Pressed sushi with mackerel. A traditional delicacy from Osaka.",
+                    mediaUrl: "images/osaka-sushi.jpg",
+                    linkUrl: "https://www.google.com/search?q=Osaka+sushi+battera"
+                },
+                {
+                    name: "Ika-Yaki",
+                    description: "Grilled squid in a thin batter, pressed like a pancake. Savory and satisfying.",
+                    mediaUrl: "images/ikayaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=Ika-yaki+Osaka"
+                },
+                {
+                    name: "Negiyaki",
+                    description: "A type of okonomiyaki loaded with green onions. Often includes beef tendon or ginger.",
+                    mediaUrl: "images/negiyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=Negiyaki+Osaka"
+                },
+                {
+                    name: "Dote-yaki",
+                    description: "Simmered beef tendon and konjac in miso sauce. Served on skewers, perfect with kushikatsu.",
+                    mediaUrl: "images/doteyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=Dote-yaki+Osaka"
+                },
+                {
+                    name: "Mitarashi Dango",
+                    description: "Rice dumplings glazed with sweet-soy sauce. A classic Japanese sweet.",
+                    mediaUrl: "images/mitarashi.jpg",
+                    linkUrl: "https://www.google.com/search?q=Mitarashi+dango+Osaka"
+                },
+                {
+                    name: "Rikuro's Cheesecake",
+                    description: "Fluffy jiggly cheesecake with raisins at the bottom. A popular souvenir.",
+                    mediaUrl: "images/rikuro.jpg",
+                    linkUrl: "https://www.rikuro.co.jp/"
+                },
+                {
+                    name: "551 Horai Pork Bun",
+                    description: "Juicy steamed pork bun, a staple at Shin-Osaka station. Grab one before your Shinkansen!",
+                    mediaUrl: "images/551butaman.jpg",
+                    linkUrl: "https://www.551horai.co.jp/"
+                },
+                {
+                    name: "Kani Doraku",
+                    description: "Famous crab restaurant with a giant mechanical crab sign. The sign itself is a landmark.",
+                    mediaUrl: "images/kanidoraku.jpg",
+                    linkUrl: "https://www.kanidouraku.co.jp/"
+                }
+            ];
+
+            // 日本語データ
+            const spotsDataJp = [
+                {
+                    name: "たこ焼き",
+                    description: "外はカリッと中はトロ〜。ソースとマヨネーズのハーモニー。道頓堀の有名店がずらり。",
+                    mediaUrl: "images/takoyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=道頓堀+たこ焼き"
+                },
+                {
+                    name: "お好み焼き",
+                    description: "粉もんの王様。キャベツたっぷり、豚玉が定番。自分で焼く店も楽しい。",
+                    mediaUrl: "images/okonomiyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=大阪+お好み焼き"
+                },
+                {
+                    name: "串カツ",
+                    description: "新世界の名物。二度漬け禁止がルール。どて焼きとのセットがたまらない。",
+                    mediaUrl: "images/kushikatsu.jpg",
+                    linkUrl: "https://www.google.com/search?q=串カツ+新世界"
+                },
+                {
+                    name: "うどん",
+                    description: "柔らかめの麺と関西風だしが特徴。きつねうどんの本場。",
+                    mediaUrl: "images/udon.jpg",
+                    linkUrl: "https://www.google.com/search?q=大阪+うどん"
+                },
+                {
+                    name: "大阪寿司（バッテラ）",
+                    description: "押し寿司の一種。酢〆したサバを敷き詰めたバッテラは大阪の誇る職人技。",
+                    mediaUrl: "images/osaka-sushi.jpg",
+                    linkUrl: "https://www.google.com/search?q=大阪寿司+バッテラ"
+                },
+                {
+                    name: "イカ焼き",
+                    description: "小麦粉の生地にイカをのせて鉄板でプレス。ソースが香ばしい粉もんの仲間。",
+                    mediaUrl: "images/ikayaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=イカ焼き+大阪"
+                },
+                {
+                    name: "ねぎ焼き",
+                    description: "お好み焼きの一種で、刻みネギがたっぷり。紅生姜や牛すじを入れる店も。",
+                    mediaUrl: "images/negiyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=ねぎ焼き+大阪"
+                },
+                {
+                    name: "どて焼き",
+                    description: "牛すじとこんにゃくを味噌で煮込んだ串焼き。串カツと一緒に味わいたい。",
+                    mediaUrl: "images/doteyaki.jpg",
+                    linkUrl: "https://www.google.com/search?q=どて焼き+大阪"
+                },
+                {
+                    name: "みたらし団子",
+                    description: "甘じょっぱいたれが絶品。大阪では桜餅や草餅も有名だが、団子も外せない。",
+                    mediaUrl: "images/mitarashi.jpg",
+                    linkUrl: "https://www.google.com/search?q=みたらし団子+大阪"
+                },
+                {
+                    name: "りくろーおじさんのチーズケーキ",
+                    description: "ふわふわ食感の焼きたてチーズケーキ。底面にレーズンが隠れている。",
+                    mediaUrl: "images/rikuro.jpg",
+                    linkUrl: "https://www.rikuro.co.jp/"
+                },
+                {
+                    name: "551蓬莱の豚まん",
+                    description: "大阪土産の定番。肉汁あふれる大きな豚まん。新大阪駅で買って新幹線で。",
+                    mediaUrl: "images/551butaman.jpg",
+                    linkUrl: "https://www.551horai.co.jp/"
+                },
+                {
+                    name: "かに道楽",
+                    description: "巨大なカニの看板が目印。カニ料理専門店だが、看板自体が観光名物。",
+                    mediaUrl: "images/kanidoraku.jpg",
+                    linkUrl: "https://www.kanidouraku.co.jp/"
+                }
+            ];
+
+            // 多言語機能を有効にする
+            const multilingual = true;   // trueで2言語対応
+
+            // ========== ここまで編集 ==========
+
+            // 現在の言語 (en/jp)  デフォルトは英語
+            let currentLang = 'en';
+            let currentTheme = 'dark';
+            const container = document.getElementById('spots-container');
+            const titleEl = document.getElementById('main-title');
+            const langBtn = document.getElementById('lang-toggle');
+            const themeBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+            const footerContact = document.getElementById('footer-contact');
+            const footerNote = document.getElementById('footer-note');
+
+            // 表示データを取得
+            function getCurrentData() {
+                if (!multilingual) {
+                    return spotsDataEn; // 通常は英語データを使う（multilingual=falseの場合）
+                } else {
+                    return currentLang === 'en' ? spotsDataEn : spotsDataJp;
+                }
+            }
+
+            // カード描画
+            function renderSpots() {
+                const data = getCurrentData();
+                // タイトルとフッターのテキストを言語に応じて変更
+                if (multilingual) {
+                    titleEl.textContent = currentLang === 'en' ? 'Osaka B-grade Gourmet 12' : '大阪B級グルメ12選';
+                    footerContact.textContent = currentLang === 'en' ? '📧 Contact' : '📧 お問い合わせ';
+                    footerNote.textContent = currentLang === 'en' ? '※ Replace images in the \'images\' folder' : '※ imagesフォルダの画像を差し替えてください';
+                } else {
+                    titleEl.textContent = 'Osaka B-grade Gourmet 12';
+                }
+
+                let html = '';
+                data.forEach(item => {
+                    const buttonHtml = item.linkUrl ? `<a class="link-button" href="${item.linkUrl}" target="_blank" rel="noopener noreferrer">${currentLang === 'en' ? 'Learn more' : '詳しく見る'}</a>` : '';
+
+                    html += `
+                        <div class="card">
+                            <img class="media" src="${item.mediaUrl}" alt="${item.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+                            <h2>${item.name}</h2>
+                            <p>${item.description}</p>
+                            ${buttonHtml}
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+
+                // 言語ボタンのテキスト更新
+                if (multilingual && langBtn) {
+                    langBtn.innerHTML = currentLang === 'en' ? '🇯🇵 JP' : '🇬🇧 EN';
+                }
+            }
+
+            // テーマ切替
+            function toggleTheme() {
+                if (currentTheme === 'dark') {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    currentTheme = 'light';
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    currentTheme = 'dark';
+                }
+            }
+
+            // 言語切替
+            function toggleLang() {
+                if (!multilingual) return;
+                currentLang = currentLang === 'en' ? 'jp' : 'en';
+                renderSpots();
+            }
+
+            // イベント登録
+            if (langBtn) langBtn.addEventListener('click', toggleLang);
+            themeBtn.addEventListener('click', toggleTheme);
+
+            // 初期描画
+            renderSpots();
+
+            // サービスワーカー登録
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .then(reg => console.log('ServiceWorker registered'))
+                        .catch(err => console.log('SW registration failed: ', err));
+                });
+            }
+
+            // 画像が見つからない場合のフォールバックを設定
+            // 上で onerror を仕込んでいるのでOK
+        })();
+    </script>
+</body>
+</html>
